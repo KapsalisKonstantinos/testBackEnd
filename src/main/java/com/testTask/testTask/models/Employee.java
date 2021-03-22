@@ -15,7 +15,7 @@ public class Employee {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")
@@ -33,8 +33,6 @@ public class Employee {
     @Column(name = "salary")
     private Float salary;
 
-    @ManyToOne( cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id")
-    @JsonBackReference
-    private Company company;
+    @Column(name = "company_id")
+    private Integer company_id;
 }

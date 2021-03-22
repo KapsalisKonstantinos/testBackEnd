@@ -1,13 +1,13 @@
 package com.testTask.testTask.modelDTOs;
 
 import com.testTask.testTask.models.Company;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmployeeDTO {
     private Integer id;
     private String name;
