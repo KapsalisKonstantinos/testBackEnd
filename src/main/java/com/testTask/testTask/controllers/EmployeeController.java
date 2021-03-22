@@ -64,7 +64,6 @@ public class EmployeeController {
     }
 
 
-
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeDTO> get(@PathVariable Integer id) {
         modelMapper.getConfiguration()
@@ -74,6 +73,7 @@ public class EmployeeController {
 
         return ResponseEntity.ok().body(modelMapper.map(employeeService.find(id).get(), EmployeeDTO.class));
     }
+
 
     @PostMapping(path = "/employee")
     public ResponseEntity<EmployeeDTO> create(@RequestBody EmployeeDTO employeeDTO) {
@@ -96,6 +96,7 @@ public class EmployeeController {
         return ResponseEntity.ok(modelMapper.map(this.employeeService.save(employee), EmployeeDTO.class));
     }
 
+
     @PutMapping(path = "/employee/{id}")
     public ResponseEntity<EmployeeDTO> update(@RequestBody EmployeeDTO employeeDTO, @PathVariable Integer id) {
         Optional<Employee> oldEmployee = employeeService.find(id);
@@ -112,6 +113,7 @@ public class EmployeeController {
 
         return ResponseEntity.ok().body(modelMapper.map(this.employeeService.save(newEmployee), EmployeeDTO.class));
     }
+
 
     @DeleteMapping(path = "/employee/{id}")
     void delete(@PathVariable Integer id) {
