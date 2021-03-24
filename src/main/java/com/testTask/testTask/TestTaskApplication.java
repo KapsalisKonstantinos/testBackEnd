@@ -29,7 +29,6 @@ public class TestTaskApplication {
 	public ResponseEntity<String> initializeH2AfterStartup() {
 		Company company = Company.builder()
 				.name(Utils.getCompanyName())
-				.id(1)
 				.build();
 		this.service.save(company);
 		List<Company> companies = service.findAll();

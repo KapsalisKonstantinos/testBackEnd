@@ -6,15 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
-    @Autowired
-    private CompanyService service;
 
     @Override
     public void run(String...args) throws Exception {
-        if(!args[0].split("=")[1].isEmpty()) {
-            Utils.setCompanyName(args[0].split("=")[1]);
+        if(args.length > 0){
+            String[] parameter = args[0].split("=");
+            if(!parameter[1].isEmpty() && parameter[0].equalsIgnoreCase("--company.name")) {
+                Utils.setCompanyName(args[0].split("=")[1]);
+            }
         }
 
     }

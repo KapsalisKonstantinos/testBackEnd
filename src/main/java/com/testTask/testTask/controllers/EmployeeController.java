@@ -59,7 +59,11 @@ public class EmployeeController {
                 .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
                 .collect(Collectors.toList());
 
+        if(employees.size() > 0) {
             return ResponseEntity.ok().body(employees.stream().mapToDouble(EmployeeDTO::getSalary).average().getAsDouble());
+        } else {
+            return ResponseEntity.ok().body(0.0d);
+        }
 
     }
 
@@ -93,7 +97,7 @@ public class EmployeeController {
                 .company_id(company.getId())
                 .build();
 
-        return ResponseEntity.ok(modelMapper.map(this.employeeService.save(employee), EmployeeDTO.class));
+        return ResponseEntity.ok(modelMapper.map(employeeService.save(employee), EmployeeDTO.class));
     }
 
 
@@ -111,7 +115,7 @@ public class EmployeeController {
                 .salary(employeeDTO.getSalary())
                 .build();
 
-        return ResponseEntity.ok().body(modelMapper.map(this.employeeService.save(newEmployee), EmployeeDTO.class));
+        return ResponseEntity.ok().body(modelMapper.map(employeeService.save(newEmployee), EmployeeDTO.class));
     }
 
 
