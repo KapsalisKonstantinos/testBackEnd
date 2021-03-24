@@ -1,6 +1,5 @@
 package com.testTask.testTask.controllers;
 
-import com.testTask.testTask.modelDTOs.CompanyDTO;
 import com.testTask.testTask.modelDTOs.EmployeeDTO;
 import com.testTask.testTask.models.Company;
 import com.testTask.testTask.models.Employee;
@@ -30,7 +29,7 @@ public class EmployeeController {
 
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDTO>> getAll(@RequestParam(defaultValue = "false", name = "listView", required = false) String listView) {
+    public ResponseEntity<List<EmployeeDTO>> getAll() {
         modelMapper.getConfiguration()
                 .setFieldMatchingEnabled(true)
                 .setMethodAccessLevel(Configuration.AccessLevel.PRIVATE)
@@ -41,15 +40,26 @@ public class EmployeeController {
                 .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
                 .collect(Collectors.toList());
 
-        if(listView.equalsIgnoreCase("true")) {
-            List response = new ArrayList<String>();
-            employees.stream().map(EmployeeDTO::getName).forEach(employee -> {
-                response.add(employee);
-            });
-            return ResponseEntity.ok().body(response);
-        } else {
-            return ResponseEntity.ok().body(employees);
-        }
+        return ResponseEntity.ok().body(employees);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<String>> getAll(@RequestParam(defaultValue = "false", name = "listView", required = false) String listView) {
+        modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setMethodAccessLevel(Configuration.AccessLevel.PRIVATE)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
+
+        List<EmployeeDTO> employees = employeeService.findAll()
+                .stream()
+                .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
+                .collect(Collectors.toList());
+
+        List<String> response = new ArrayList<>();
+        employees.stream().map(EmployeeDTO::getName).forEach(employee -> {
+            response.add(employee);
+        });
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping(path = "/avg")
@@ -103,10 +113,10 @@ public class EmployeeController {
 
     @PutMapping(path = "/employee/{id}")
     public ResponseEntity<EmployeeDTO> update(@RequestBody EmployeeDTO employeeDTO, @PathVariable Integer id) {
-        Optional<Employee> oldEmployee = employeeService.find(id);
+//        Optional<Employee> oldEmployee = employeeService.find(id);
 
         Employee newEmployee = Employee.builder()
-                .id(oldEmployee.get().getId())
+                .id(id)
                 .name(employeeDTO.getName())
                 .surname(employeeDTO.getSurname())
                 .email(employeeDTO.getEmail())

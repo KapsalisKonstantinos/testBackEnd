@@ -36,7 +36,7 @@ public class CompanyControllerTests{
     @Test
     public void getAllCompanies() throws Exception {
         Company company = Company.builder().id(1).name("test").build();
-        List companies = new ArrayList<Company>();
+        List<Company> companies = new ArrayList<>();
         companies.add(company);
         when(this.service.findAll()).thenReturn(companies);
 

@@ -10,12 +10,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.web.servlet.server.Encoding;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.sound.sampled.AudioFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +48,7 @@ public class EmployeeControllerTests{
                 .salary(1000.0F)
                 .address("street 1")
                 .company_id(1).build();
-        List employees = new ArrayList<Employee>();
+        List<Employee> employees = new ArrayList<>();
         employees.add(employee);
         when(employeeService.findAll()).thenReturn(employees);
         ObjectMapper mapper = new ObjectMapper();
@@ -71,7 +69,7 @@ public class EmployeeControllerTests{
                 .salary(1000.0F)
                 .address("street 1")
                 .company_id(1).build();
-        List employees = new ArrayList<Employee>();
+        List<Employee> employees = new ArrayList<>();
         employees.add(employee);
         when(employeeService.findAll()).thenReturn(employees);
 
@@ -102,7 +100,7 @@ public class EmployeeControllerTests{
                 .company_id(1)
                 .build();
 
-        List employees = new ArrayList<Employee>();
+        List<Employee> employees = new ArrayList<>();
         employees.add(employee1);
         employees.add(employee2);
 
@@ -123,8 +121,7 @@ public class EmployeeControllerTests{
                 .salary(1000.0F)
                 .address("street 1")
                 .company_id(1).build();
-        List employees = new ArrayList<Employee>();
-        employees.add(employee);
+
         Optional<Employee> optionalEmployee = Optional.of(employee);
         when(employeeService.find(1)).thenReturn(optionalEmployee);
         ObjectMapper mapper = new ObjectMapper();
