@@ -73,7 +73,7 @@ public class EmployeeControllerTests{
         employees.add(employee);
         when(employeeService.findAll()).thenReturn(employees);
 
-        mockMvc.perform(get("/employees?listView=true"))
+        mockMvc.perform(get("/employees/filter?listView=true"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("[\"test\"]"));
     }
